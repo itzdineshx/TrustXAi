@@ -2,6 +2,8 @@
 
 AI + Blockchain powered fraud intelligence platform for institutional finance.
 
+![Logo](public/trustx-logo.png)
+
 ## Badges
 
 ![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite%205-61DAFB?logo=react&logoColor=white)
