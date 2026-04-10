@@ -1,195 +1,271 @@
 # TrustXAi
 
-AI + Blockchain powered fraud intelligence platform for institutional finance.
+TrustXAi is a full-stack fraud intelligence platform that combines AI risk analytics, graph-based investigation tooling, and blockchain-style audit integrity for institutional banking workflows.
 
-![Logo](public/trustx-logo.png)
-
-## Badges
-
-![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite%205-61DAFB?logo=react&logoColor=white)
-![Backend](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python%203.x-009688?logo=fastapi&logoColor=white)
-![Database](https://img.shields.io/badge/Database-MongoDB-47A248?logo=mongodb&logoColor=white)
-![Realtime](https://img.shields.io/badge/Realtime-SSE%20Alerts-ef4444)
-![Charts](https://img.shields.io/badge/Visuals-Recharts-2563eb)
-![ML](https://img.shields.io/badge/ML-scikit--learn%20%7C%20XGBoost-f59e0b)
-![LLM](https://img.shields.io/badge/Local%20LLM-Ollama%20gemma2%3A2b-7c3aed)
-![Status](https://img.shields.io/badge/Build-Passing-22c55e)
-![License](https://img.shields.io/badge/License-Not%20Specified-9ca3af)
+![TrustXAi Logo](public/trustx-logo.png)
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Key Capabilities](#key-capabilities)
+- [What It Does](#what-it-does)
 - [Architecture](#architecture)
-- [Workflow](#workflow)
-- [Frontend Modules and Routes](#frontend-modules-and-routes)
-- [Backend API Surface](#backend-api-surface)
+- [Product Walkthrough (Screenshots)](#product-walkthrough-screenshots)
+- [Core Capabilities](#core-capabilities)
 - [Tech Stack](#tech-stack)
 - [Repository Structure](#repository-structure)
-- [Quick Start](#quick-start)
+- [Local Setup](#local-setup)
 - [Configuration](#configuration)
-- [Runbook](#runbook)
+- [API Surface](#api-surface)
+- [ML Pipelines](#ml-pipelines)
 - [Demo Accounts](#demo-accounts)
-- [Testing and Quality](#testing-and-quality)
+- [Testing](#testing)
+- [Deployment](#deployment)
 - [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
 - [License](#license)
 
-## Overview
+## What It Does
 
-TrustXAi is a full-stack fraud intelligence workspace with:
+TrustXAi provides a unified operations workspace for:
 
-- Role-based dashboards (`admin`, `analyst`, `viewer`)
-- Real-time alerts streaming (SSE)
-- Fraud investigation graphing and bank-layer spider mapping
-- Workflow case management (assign, status, comments, evidence, SLA)
-- Signed regulator-ready exports (PDF, CSV, ZIP bundle)
-- Immutable audit logs with hash-chain verification
-- Federated learning telemetry and ML training orchestration
-- Local AI summaries in Reports using Ollama `gemma2:2b`
-
-## Key Capabilities
-
-### Detection and Monitoring
-
-- Live transaction and alert telemetry
-- Fraud DNA pattern tracking
-- Alert explainability (risk score, model confidence, rule confidence, top factors)
-
-### Investigation and Case Operations
-
-- Case merge, layered money-flow visualization, and timeline replay
-- Entity linking by holder attributes (phone, IP, email, bank)
-- Investigation workflow actions:
-	- create case
-	- assign owner
-	- update status
-	- add comments
-	- upload evidence
-
-### Compliance and Governance
-
-- Signed export artifacts:
-	- investigation PDF
-	- investigation CSV
-	- regulator bundle ZIP
-- Immutable activity logs and verification endpoint
-- Admin telemetry for institutions, threat feed, and audit activity
-
-### ML and Intelligence
-
-- Multi-pipeline training endpoints (`/ml/train/*`)
-- Federated learning health and convergence panels
-- Local AI report summary generation via Ollama (`gemma2:2b`)
+- Real-time fraud monitoring and triage
+- Risk-scored transaction intelligence
+- Entity linking and inter-case money trail analysis
+- Blockchain-style immutable activity records and verification
+- Federated training telemetry and model governance
+- Role-based access across admin, analyst, and viewer personas
 
 ## Architecture
 
-### High-Level System Diagram
+The platform follows a React frontend + FastAPI backend architecture, with MongoDB persistence and CSV-driven model training pipelines.
 
-```mermaid
-flowchart LR
-	U[User Browser]
-	FE[React + Vite Frontend]
-	API[FastAPI Backend]
-	DB[(MongoDB)]
-	CSV[(CSV Datasets)]
-	ML[ML Pipelines]
-	LEDGER[Internal Blockchain Ledger]
-	OLLAMA[Ollama Local Model\ngemma2:2b]
+![Architecture](images/architecture.png)
 
-	U --> FE
-	FE -->|REST + SSE| API
-	API --> DB
-	API --> CSV
-	API --> ML
-	API --> LEDGER
-	API --> OLLAMA
-	ML --> DB
-	CSV --> DB
+High-level flow:
+
+1. Frontend requests data from FastAPI using JWT auth.
+2. Backend serves dashboards, investigation data, and ML telemetry.
+3. Startup routines seed users, ingest CSV datasets, and initialize ledger state.
+4. Optional local LLM summaries are generated through Ollama.
+
+## Product Walkthrough (Screenshots)
+
+### Landing Page
+
+![Landing Page](images/landing.png)
+
+### Login
+
+![Login](images/login.png)
+
+### Analyst Dashboard
+
+![Dashboard](images/dashboard.png)
+
+### Transactions
+
+![Transactions](images/transaction.png)
+
+### Fraud Intelligence
+
+![Fraud Intelligence](images/fraud_intel.png)
+
+### Money Flow Visualizer
+
+![Money Flow](images/money_flow.png)
+
+### Bank Account Layering Spider Map
+
+![Spider Map](images/spider_map.png)
+
+### Reports and Compliance
+
+![Reports](images/reports.png)
+
+### Blockchain Explorer
+
+![Blockchain Explorer](images/blockchain.png)
+
+### Federated Learning
+
+![Federated Learning](images/federated_learning.png)
+
+## Core Capabilities
+
+### Detection and Monitoring
+
+- Live dashboard telemetry for transaction and alert volume
+- Risk scoring and anomaly surfacing
+- Alert enrichment with model and rule confidence
+
+### Investigation Operations
+
+- Cross-case linking and layered money flow trails
+- Graph exploration for source-to-destination tracing
+- Investigation workflow states, assignment, comments, and evidence
+
+### Governance and Compliance
+
+- Report exports for handoff and review
+- Immutable audit chain for record integrity checks
+- Role-aware controls by institution and function
+
+### Intelligence and Learning
+
+- Dataset-driven ML pipeline execution
+- Federated training visibility and convergence metrics
+- Optional local AI report summaries via Ollama
+
+## Tech Stack
+
+### Frontend
+
+- React 18 + TypeScript + Vite
+- React Router + TanStack Query
+- Tailwind CSS + shadcn/ui + Radix UI
+- Recharts + custom visual components
+
+### Backend
+
+- FastAPI + Uvicorn
+- PyMongo with mongomock fallback
+- JWT auth (`python-jose`) + password hashing (`passlib`)
+- Pandas, NumPy, scikit-learn, statsmodels, networkx, xgboost
+
+## Repository Structure
+
+```text
+TrustXAi/
+  backend/
+    app/
+      api/endpoints/
+      blockchain/
+      core/
+      db/
+      ml/
+      schemas/
+      main.py
+    requirements.txt
+    README.md
+  data/
+  images/
+  public/
+  src/
+    components/
+    contexts/
+    hooks/
+    lib/
+    pages/
+    test/
+  package.json
+  README.md
 ```
 
-### Request Flow
+## Local Setup
 
-```mermaid
-sequenceDiagram
-	participant UI as Frontend
-	participant API as FastAPI
-	participant AUTH as JWT Auth
-	participant MONGO as MongoDB
+### Prerequisites
 
-	UI->>API: Login request
-	API->>AUTH: Validate credentials
-	AUTH-->>API: Access token
-	API-->>UI: JWT + user profile
-	UI->>API: Protected request (Bearer token)
-	API->>MONGO: Query collections
-	MONGO-->>API: Documents
-	API-->>UI: Typed JSON response
+- Node.js 18+
+- npm 9+
+- Python 3.10+
+- MongoDB (optional in local mode because mongomock fallback is supported)
+
+### 1) Install frontend dependencies
+
+From repository root:
+
+```bash
+npm install
 ```
 
-## Workflow
+### 2) Create Python virtual environment and install backend dependencies
 
-### Fraud Investigation Workflow
+From repository root:
 
-```mermaid
-flowchart TD
-	A[Ingest transactions + alerts] --> B[Detect suspicious patterns]
-	B --> C[Open Fraud Intelligence]
-	C --> D[Merge investigation cases]
-	D --> E[Analyze Spider Map + timeline]
-	E --> F[Create/assign workflow case]
-	F --> G[Add comments + evidence]
-	G --> H[Resolve or escalate]
+```bash
+python -m venv .venv
 ```
 
-### Compliance Export Workflow
+Activate venv:
 
-```mermaid
-flowchart TD
-	A[Select case IDs in Reports] --> B[Generate signed PDF/CSV/Bundle]
-	B --> C[Attach signature headers]
-	C --> D[Record immutable audit entry]
-	D --> E[Verify hash-chain integrity]
-	E --> F[Deliver regulator-ready artifacts]
+PowerShell (Windows):
+
+```bash
+.venv\Scripts\Activate.ps1
 ```
 
-### Federated Learning Workflow
+Bash (macOS/Linux):
 
-```mermaid
-flowchart LR
-	A[Institutional local data] --> B[Train local models]
-	B --> C[Aggregate updates]
-	C --> D[Global model metrics]
-	D --> E[Dashboard convergence + node health]
-	E --> F[Optional full ML run trigger]
+```bash
+source .venv/bin/activate
 ```
 
-## Frontend Modules and Routes
+Install backend requirements:
 
-Main application routes:
+```bash
+python -m pip install -r backend/requirements.txt
+```
 
-- Public:
-	- `/`
-	- `/login`
-- Dashboard:
-	- `/dashboard/admin`
-	- `/dashboard/analyst`
-	- `/dashboard/viewer`
-- Operations:
-	- `/transactions`
-	- `/fraud-intelligence`
-	- `/alerts`
-	- `/reports`
-	- `/blockchain`
-	- `/federated-learning`
-	- `/admin`
-	- `/settings`
+### 3) Run backend
 
-## Backend API Surface
+```bash
+cd backend
+python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Backend docs and health:
+
+- http://127.0.0.1:8000/docs
+- http://127.0.0.1:8000/redoc
+- http://127.0.0.1:8000/health
+
+### 4) Run frontend
+
+In a second terminal from repository root:
+
+```bash
+npm run dev
+```
+
+Frontend app:
+
+- http://localhost:5173
+
+## Configuration
+
+### Frontend environment
+
+Create or update root `.env`:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
+```
+
+### Backend environment
+
+Backend settings are read from `backend/.env`.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `APP_NAME` | `TrustXAi Backend` | API display name |
+| `API_V1_PREFIX` | `/api/v1` | API prefix |
+| `SECRET_KEY` | `change-this-secret-key-in-production` | JWT signing secret |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | `1440` | Token expiry in minutes |
+| `ALGORITHM` | `HS256` | JWT algorithm |
+| `MONGODB_URL` | `mongodb://localhost:27017` | MongoDB connection string |
+| `MONGODB_DB_NAME` | `trustxai` | Database name |
+| `CORS_ORIGINS` | localhost list | Allowed origins |
+| `DATA_DIR` | `data` | CSV source directory |
+| `MODEL_ARTIFACTS_DIR` | `backend/model_artifacts` | ML artifacts output |
+| `MAX_TRAINING_ROWS` | `0` | Row limit (`0` means unlimited) |
+| `OLLAMA_BASE_URL` | `http://127.0.0.1:11434` | Local Ollama endpoint |
+| `OLLAMA_MODEL` | `gemma2:2b` | Local model name |
+| `OLLAMA_TIMEOUT_SECONDS` | `60` | LLM request timeout |
+| `OLLAMA_MAX_CONTEXT_CHARS` | `12000` | Prompt context limit |
+
+## API Surface
 
 Base prefix: `/api/v1`
 
-Route groups:
+Primary route groups:
 
 - `/auth`
 - `/dashboard`
@@ -201,257 +277,96 @@ Route groups:
 - `/admin`
 - `/settings`
 
-Selected high-value endpoints:
-
-### Auth
+Useful endpoints:
 
 - `POST /api/v1/auth/login`
 - `GET /api/v1/auth/me`
-
-### Fraud Intelligence and Investigation
-
-- `GET /api/v1/fraud-intelligence/dna`
-- `GET /api/v1/fraud-intelligence/alerts`
 - `GET /api/v1/fraud-intelligence/alerts/stream` (SSE)
-- `GET /api/v1/fraud-intelligence/investigation/merge`
-- `GET /api/v1/fraud-intelligence/investigation/workflow/cases`
-- `POST /api/v1/fraud-intelligence/investigation/workflow/cases`
-- `POST /api/v1/fraud-intelligence/investigation/workflow/cases/{id}/assign`
-- `POST /api/v1/fraud-intelligence/investigation/workflow/cases/{id}/status`
-- `POST /api/v1/fraud-intelligence/investigation/workflow/cases/{id}/comments`
-- `POST /api/v1/fraud-intelligence/investigation/workflow/cases/{id}/evidence`
-- `GET /api/v1/fraud-intelligence/investigation/audit/logs`
-- `GET /api/v1/fraud-intelligence/investigation/audit/logs/verify`
-- `GET /api/v1/fraud-intelligence/investigation/reports/export/pdf`
-- `GET /api/v1/fraud-intelligence/investigation/reports/export/csv`
-- `GET /api/v1/fraud-intelligence/investigation/reports/export/bundle`
-- `POST /api/v1/fraud-intelligence/investigation/reports/ai-summary` (Ollama)
-
-### Federated and ML
-
-- `GET /api/v1/federated-learning/model-updates`
-- `GET /api/v1/federated-learning/convergence`
-- `GET /api/v1/federated-learning/privacy`
-- `GET /api/v1/federated-learning/node-health`
 - `GET /api/v1/ml/pipelines`
 - `POST /api/v1/ml/train/all`
-- `POST /api/v1/ml/train/{pipeline_name}`
 - `GET /api/v1/ml/train/runs`
 
-### Health and Docs
+## ML Pipelines
 
-- `GET /health`
-- `GET /docs`
-- `GET /openapi.json`
+Implemented training pipelines include:
 
-## Tech Stack
+- transactions
+- layered_transactions
+- entities
+- time_series
+- complaints
+- federated
+- aml_patterns
+- fraud_detection_financial
 
-### Frontend
+Training run endpoints:
 
-- React 18, TypeScript 5, Vite 5
-- React Router
-- TanStack Query
-- Tailwind CSS + shadcn/ui + Radix UI
-- Framer Motion
-- Recharts
-- jsPDF (client-side visual report PDF)
-- Vitest + Testing Library
-
-### Backend
-
-- FastAPI, Uvicorn
-- PyMongo + mongomock fallback
-- JWT auth (`python-jose`) + `passlib`
-- Pydantic Settings
-- Pandas, NumPy, scikit-learn, statsmodels, networkx, xgboost
-
-### Optional Local AI
-
-- Ollama runtime
-- Model: `gemma2:2b`
-
-## Repository Structure
-
-```text
-TrustXAi/
-	backend/
-		app/
-			api/endpoints/
-			blockchain/
-			core/
-			db/
-			ml/
-			schemas/
-			main.py
-		requirements.txt
-		README.md
-	data/
-	public/
-	src/
-		components/
-		contexts/
-		data/
-		hooks/
-		lib/
-		pages/
-		test/
-	package.json
-	README.md
-```
-
-## Quick Start
-
-### Prerequisites
-
-- Node.js 18+
-- npm 9+
-- Python 3.10+
-- MongoDB (optional in local development; mongomock fallback exists)
-- Ollama (optional, only for local AI summary feature)
-
-### 1) Frontend setup
-
-```bash
-cd TrustXAi
-npm install
-```
-
-Create or update root `.env`:
-
-```env
-VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
-```
-
-Start frontend:
-
-```bash
-npm run dev
-```
-
-### 2) Backend setup
-
-```bash
-cd backend
-pip install -r requirements.txt
-python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
-
-Backend docs:
-
-- http://127.0.0.1:8000/docs
-- http://127.0.0.1:8000/openapi.json
-
-### 3) Optional local AI setup (Ollama)
-
-```bash
-ollama list
-ollama pull gemma2:2b
-```
-
-The Reports page can call local AI summary after selecting case IDs.
-
-## Configuration
-
-Backend reads environment from `backend/.env`.
-
-Key backend settings:
-
-| Variable | Default | Description |
-| --- | --- | --- |
-| `API_V1_PREFIX` | `/api/v1` | API base prefix |
-| `MONGODB_URL` | `mongodb://localhost:27017` | MongoDB connection string |
-| `MONGODB_DB_NAME` | `trustxai` | Database name |
-| `CORS_ORIGINS` | localhost values | Allowed frontend origins |
-| `DATA_DIR` | `data` | CSV ingestion source |
-| `MODEL_ARTIFACTS_DIR` | `backend/model_artifacts` | ML artifacts output |
-| `MAX_TRAINING_ROWS` | `0` | Optional row cap (`0` = no cap) |
-| `OLLAMA_BASE_URL` | `http://127.0.0.1:11434` | Local Ollama endpoint |
-| `OLLAMA_MODEL` | `gemma2:2b` | Local LLM model |
-| `OLLAMA_TIMEOUT_SECONDS` | `60` | Ollama request timeout |
-| `OLLAMA_MAX_CONTEXT_CHARS` | `12000` | Context truncation guard |
-
-## Runbook
-
-### Typical local development loop
-
-1. Run backend (`uvicorn`) from `backend/`.
-2. Run frontend (`npm run dev`) from repository root.
-3. Open app at `http://localhost:5173`.
-4. Use role accounts to validate role-specific dashboards.
-5. Use `Reports` for signed exports and optional local AI summary.
-
-### Data bootstrapping
-
-On backend startup, TrustXAi performs:
-
-1. seed database
-2. ingest CSV datasets
-3. ensure blockchain genesis block
+- `GET /api/v1/ml/pipelines`
+- `POST /api/v1/ml/train/{pipeline_name}`
+- `POST /api/v1/ml/train/all`
+- `GET /api/v1/ml/train/runs`
 
 ## Demo Accounts
 
 All seeded users use password: `demo1234`
 
-- `admin@rbi.gov.in`
-- `analyst@sbi.co.in`
-- `viewer@hdfc.com`
+- admin@rbi.gov.in
+- analyst@sbi.co.in
+- viewer@hdfc.com
 
-## Testing and Quality
+## Testing
 
-Frontend scripts:
+Frontend:
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start Vite dev server |
-| `npm run lint` | Lint frontend code |
-| `npm run test` | Run Vitest once |
-| `npm run test:watch` | Run Vitest in watch mode |
-| `npm run build` | Build production frontend |
-| `npm run preview` | Preview built frontend |
+```bash
+npm run lint
+npm run test
+npm run build
+```
 
-Backend quick validation:
+Backend quick check:
 
 ```bash
 cd backend
 python -m compileall app
 ```
 
+## Deployment
+
+Recommended deployment split:
+
+- Frontend: Vercel
+- Backend: Render
+
+Minimum production checklist:
+
+1. Set strong backend `SECRET_KEY`.
+2. Configure production MongoDB URL.
+3. Set production `CORS_ORIGINS`.
+4. Set frontend `VITE_API_BASE_URL` to deployed backend URL.
+5. Validate `/health` and `/docs` after deployment.
+
 ## Troubleshooting
 
-### Backend starts but API calls fail
+### Backend reachable but frontend calls fail
 
-- Verify backend is reachable at `/docs`.
-- Confirm frontend `VITE_API_BASE_URL` points to `http://127.0.0.1:8000/api/v1`.
+- Confirm frontend `.env` has correct `VITE_API_BASE_URL`.
+- Verify backend is running at `http://127.0.0.1:8000`.
 
-### 401 or auth issues
+### Auth failures
 
-- Re-login to refresh JWT token in local storage.
-- Confirm role allows endpoint (for example viewer cannot access fraud-intelligence workflows).
+- Re-login to refresh JWT token.
+- Confirm route is allowed for your role.
 
-### Local AI summary not working
-
-- Ensure Ollama daemon is running.
-- Confirm model exists: `ollama list` includes `gemma2:2b`.
-- Verify `OLLAMA_BASE_URL` and `OLLAMA_MODEL` in backend env.
-
-### CORS issues
+### CORS errors
 
 - Add your frontend origin to `CORS_ORIGINS` in `backend/.env`.
+- Restart backend after config changes.
 
-## Contributing
+### Slow startup
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit focused changes
-4. Open a pull request
-
-When adding new modules, update this README sections:
-
-- Architecture
-- Workflow
-- API surface
-- Configuration
+- First startup may take longer due to seed + CSV ingestion + model artifacts checks.
 
 ## License
 
-No license file is currently included. Add a `LICENSE` file to define usage terms.
+No license file is currently included in this repository.
